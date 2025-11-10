@@ -1,264 +1,360 @@
 <group name="syslog,sshd,">
-  
-  <rule id="5701" level="8" overwrite="yes">
-    <if_sid>5700</if_sid>
-    <match>Bad protocol version identification</match>
-    <description>sshd: SSH sunucusuna yönelik olası saldırı (veya sürüm toplama teşebbüsü).</description>
+  
+  <rule id="5701" level="8" overwrite="yes">
+    <if_sid>5700</if_sid>
+    <match>Bad protocol version identification</match>
+    <description>sshd: SSH sunucusuna yonelik olasi saldiri (veya surum toplama tesebbüsü).</description>
+    <mitre>
+      <id>T1190</id>
+    </mitre>
+    <group>gdpr_IV_35.7.d,gpg13_4.12,nist_800_53_SI.4,pci_dss_11.4,recon,tsc_CC6.1,tsc_CC6.8,tsc_CC7.2,tsc_CC7.3,</group>
+  </rule>
+
+  <rule id="5707" level="14" overwrite="yes">
+    <if_sid>5700</if_sid>
+    <match>fatal: buffer_get_string: bad string</match>
+    <description>sshd: OpenSSH challenge-response zafiyet istismari.</description>
+    <mitre>
+      <id>T1210</id>
+      <id>T1068</id>
+    </mitre>
+    <group>exploit_attempt,gdpr_IV_35.7.d,gpg13_4.12,nist_800_53_SI.4,nist_800_53_SI.2,pci_dss_11.4,pci_dss_6.2,tsc_CC6.1,tsc_CC6.8,tsc_CC7.2,tsc_CC7.3,</group>
+  </rule>
+
+  <rule id="5710" level="5" overwrite="yes">
+    <if_sid>5700</if_sid>
+    <match>illegal user|invalid user</match>
+    <description>sshd: Mevcut olmayan bir kullaniciyla giris yapma girisimi.</description>
+    <mitre>
+      <id>T1110.001</id>
+      <id>T1021.004</id>
+    </mitre>
+    <group>authentication_failed,gdpr_IV_35.7.d,gdpr_IV_32.2,gpg13_7.1,hipaa_164.312.b,invalid_login,nist_800_53_AU.14,nist_800_53_AC.7,nist_800_53_AU.6,pci_dss_10.2.4,pci_dss_10.2.5,pci_dss_10.6.1,tsc_CC6.1,tsc_CC6.8,tsc_CC7.2,tsc_CC7.3,</group>
+  </rule>
+
+  <rule id="5712" level="13" frequency="8" timeframe="120" ignore="60" overwrite="yes">
+    <if_matched_sid>5710</if_matched_sid>
+    <same_source_ip />
+    <description>sshd: Var olmayan kullaniciyla sistem erisim denemesi - brute force saldirisi.</description>
+    <mitre>
+      <id>T1110</id>
+    </mitre>
+    <group>authentication_failures,gdpr_IV_35.7.d,gdpr_IV_32.2,hipaa_164.312.b,nist_800_53_SI.4,nist_800_53_AU.14,nist_800_53_AC.7,pci_dss_11.4,pci_dss_10.2.4,pci_dss_10.2.5,tsc_CC6.1,tsc_CC6.8,tsc_CC7.2,tsc_CC7.3,</group>
+    <options>alert_by_email</options>
+  </rule>
+  
+  <rule id="5719" level="10" frequency="8" timeframe="120" ignore="60" overwrite="yes">
+    <if_matched_sid>5718</if_matched_sid>
+    <description>sshd: Reddedilmis kullaniciyla coklu erisim denemesi.</description>
+    <mitre>
+      <id>T1110</id>
+    </mitre>
+    <group>gdpr_IV_35.7.d,gdpr_IV_32.2,gpg13_7.1,hipaa_164.312.b,invalid_login,nist_800_53_AU.14,nist_800_53_AC.7,nist_800_53_SI.4,pci_dss_10.2.4,pci_dss_10.2.5,pci_dss_11.4,tsc_CC6.1,tsc_CC6.8,tsc_CC7.2,tsc_CC7.3,</group>
+  </rule>
+
+  <rule id="5731" level="6" overwrite="yes">
+    <if_sid>5700</if_sid>
+    <match>AKASSH_Version_Mapper1.</match>
+    <description>sshd: SSH tarama faaliyeti tespit edildi.</description>
+    <mitre>
+      <id>T1046</id>
+    </mitre>
+    <group>gdpr_IV_35.7.d,nist_800_53_SI.4,tsc_CC6.1,tsc_CC6.8,pci_dss_11.4,recon,tsc_CC7.2,tsc_CC7.3,</group>
+  </rule>
+
+  <rule id="5760" level="5" overwrite="yes">
+    <if_sid>5700,5716</if_sid>
+    <match>Failed password|Failed keyboard|authentication error</match>
+    <description>sshd: Kimlik dogrulama basarisiz oldu.</description>
+    <mitre>
+      <id>T1110.001</id>
+      <id>T1021.004</id>
+    </mitre>
+    <group>authentication_failed,gdpr_IV_35.7.d,gdpr_IV_32.2,gpg13_7.1,hipaa_164.312.b,nist_800_53_AU.14,nist_800_53_AC.7,pci_dss_10.2.4,pci_dss_10.2.5,tsc_CC6.1,tsc_CC6.8,tsc_CC7.2,tsc_CC7.3,</group>
+  </rule>
+
+  <rule id="5763" level="10" frequency="8" timeframe="120" ignore="60" overwrite="yes">
+    <if_matched_sid>5760</if_matched_sid>
+    <same_source_ip/>
+    <description>sshd: Kimlik dogrulama hatasiyla brute force saldirisi tespit edildi.</description>
+    <mitre>
+      <id>T1110</id>
+    </mitre>
+    <group>authentication_failures,gdpr_IV_35.7.d,gdpr_IV_32.2,hipaa_164.312.b,nist_800_53_SI.4,nist_800_53_AU.14,nist_800_53_AC.7,pci_dss_11.4,pci_dss_10.2.4,pci_dss_10.2.5,tsc_CC6.1,tsc_CC6.8,tsc_CC7.2,tsc_CC7.3,</group>
+    <options>alert_by_email</options>
+  </rule>
+
+    <rule id="100102" level="13">
+    <if_group>sshd</if_group>
+    <regex type="pcre2">Accepted (password|publickey) for root</regex>
+    <description>Linux SSH root login basarili</description>
+    <mitre>
+      <id>T1078.003</id>
+    </mitre>
+    <group>authentication_success,pci_dss_10.2.5,</group>
+    <options>alert_by_email</options>
+  </rule>
+
+</group>
+
+
+<group name="windows,windows_security,ad,">
+  
+  <rule id="60114" level="13" overwrite="yes">
+    <if_sid>60103</if_sid>
+    <field name="win.system.eventID">4740</field>
+    <description>KRITIK: Hesap Kilitlendi - $(win.eventdata.targetUserName)</description>
+    <group>account_lockout,pci_dss_10.2.4,pci_dss_10.2.5,</group>
+    <mitre>
+      <id>T1110.001</id>
+    </mitre>
+    <options>alert_by_email</options>
+  </rule>
+
+  <rule id="60141" level="13" overwrite="yes">
+    <if_sid>60113</if_sid>
+    <field name="win.system.eventID">4728</field>
+    <description>Grup Uyeligi Degisti: $(win.eventdata.targetUserName)</description>
+    <group>group_membership,pci_dss_10.2.5,</group>
+    <mitre>
+      <id>T1098.002</id>
+    </mitre>
+    <options>alert_by_email</options>
+  </rule>
+
+  <rule id="60109" level="13" overwrite="yes">
+    <field name="win.system.eventID">4720</field>
+    <description>Yeni Hesap: $(win.eventdata.targetUserName)</description>
+    <group>account_creation,pci_dss_10.2.5,</group>
+    <mitre>
+      <id>T1136</id>
+    </mitre>
+    <options>alert_by_email</options>
+  </rule>
+
+  <rule id="60115" level="13" overwrite="yes">
+    <if_sid>60103</if_sid> 
+    <field name="win.system.eventID">4726</field>
+    <description>Hesap Silindi: $(win.eventdata.targetUserName)</description>
+    <group>account_deletion,pci_dss_10.2.5,</group>
+    <mitre>
+      <id>T1531</id>
+    </mitre>
+    <options>alert_by_email</options>
+  </rule>
+
+  <rule id="60116" level="13" overwrite="yes">
+    <if_sid>60103</if_sid>
+    <field name="win.system.eventID">4725</field>
+    <description>Hesap Devre Disi Birakildi: $(win.eventdata.targetUserName)</description>
+    <group>account_disable,pci_dss_10.2.5,</group>
+    <mitre>
+      <id>T1531</id>
+    </mitre>
+    <options>alert_by_email</options>
+  </rule>
+
+  <rule id="60133" level="8" overwrite="yes">
+    <if_sid>60103</if_sid>
+    <field name="win.system.eventID">4767</field>
+    <description>Hesap Kilidi Acildi: $(win.eventdata.targetUserName)</description>
+    <group>account_unlock,pci_dss_10.2.5,</group>
+    <mitre>
+      <id>T1098</id>
+    </mitre>
+    <options>alert_by_email</options>
+  </rule>
+
+  <rule id="60160" level="3" overwrite="yes">
+    <if_sid>60103</if_sid>
+    <field name="win.system.eventID">^4769$</field>
+    <field name="win.eventdata.TicketOptions" type="pcre2">0x40810000</field>
+    <field name="win.eventdata.TicketEncryptionType" type="pcre2">0x17</field>
+    <options>no_full_log</options>
+    <description>Olasi Kerberoasting saldirisi</description>
+    <mitre>
+      <id>T1558.003</id>
+    </mitre>
+  </rule>
+
+  <rule id="60161" level="5" overwrite="yes">
+    <if_sid>60104</if_sid>  
+    <field name="win.system.eventID">4625</field>
+    <description>BRUTE FORCE: $(win.eventdata.targetUserName) - IP=$(win.eventdata.ipAddress)</description>
+  	<group>authentication_failure,pci_dss_10.2.4,pci_dss_10.2.5,</group>
+  	<mitre>
+      <id>T1110</id>
+    </mitre>
+    <options>alert_by_email</options>
+  </rule>
+
+  <rule id="60162" level="3" overwrite="yes">
+    <if_sid>60103</if_sid>
+  	<field name="win.system.eventID">4624</field>
+  	<field name="win.eventdata.logonType">3</field>
+  	<time>21:00-06:00</time>
+  	<description>PASS-THE-HASH Suphesi: $(win.eventdata.targetUserName)</description>
+  	<mitre>
+      <id>T1550.002</id>
+  	</mitre>
+  	<group>authentication_success,pci_dss_10.2.5,</group>
+  	<options>alert_by_email</options>
+  </rule>
+
+  <rule id="60163" level="3" overwrite="yes">
+  	<if_sid>60103</if_sid>
+  	<field name="win.system.eventID">4769</field>
+  	<field name="win.eventdata.ticketOptions">0x60</field>
+  	<field name="win.eventdata.ticketEncryptionType">0x17</field>
+  	<description>GOLDEN TICKET: $(win.eventdata.targetUserName)</description>
+  	<mitre>
+      <id>T1558.001</id>
+  	</mitre>
+  	<options>alert_by_email</options>
+  </rule>
+
+  <rule id="60228" level="4" overwrite="yes">
+  	<if_sid>60103</if_sid>
+  	<field name="win.system.eventID">4698</field>
+  	<description>PERSISTENCE: Yeni zamanlanmis gorev - $(win.eventdata.taskName)</description>
+  	<mitre>
+      <id>T1053.005</id>
+  	</mitre>
+  	<group>policy_changed,pci_dss_10.6.1,</group>
+  	<options>alert_by_email</options>
+  </rule>
+  
+  <rule id="60142" level="13" overwrite="yes">
+  	<if_sid>60113</if_sid>
+  	<field name="win.system.eventID">4729</field>
+  	<field name="win.eventdata.GroupName">Domain Admins</field>
+  	<description>KRITIK: Domain Admins grubundan uye cikarildi - $(win.eventdata.MemberName)</description>
+  	<group>group_membership,pci_dss_10.2.5,</group>
+  	<mitre>
+      <id>T1098.002</id>
+  	</mitre>
+  	<options>alert_by_email</options>
+  </rule>
+
+  <rule id="100117" level="13" overwrite="yes">
+    <if_sid>60004</if_sid>
+    <field name="win.system.eventID">1102</field>
+    <description>KRITIK GUVENLIK OLAYI: Denetim Gunlugu (Security Log) Temizlendi! $(win.data.user.name) tarafindan.</description>
     <mitre>
-      <id>T1190</id>
+      <id>T1070.001</id>
     </mitre>
-    <group>gdpr_IV_35.7.d,gpg13_4.12,nist_800_53_SI.4,pci_dss_11.4,recon,tsc_CC6.1,tsc_CC6.8,tsc_CC7.2,tsc_CC7.3,</group>
+    <group>audit_cleared,pci_dss_10.2.5,gdpr_IV_32.2,</group>
+    <options>alert_by_email</options>
   </rule>
 
-  <rule id="5707" level="14" overwrite="yes">
-    <if_sid>5700</if_sid>
-    <match>fatal: buffer_get_string: bad string</match>
-    <description>sshd: OpenSSH challenge-response zafiyet istismarı.</description>
+  <rule id="100662" level="14">
+    <if_sid>60158</if_sid>
+    <field name="win.system.eventID">4662</field>
+    <field name="win.eventdata.properties" type="pcre2">(?i)1131f6ad-9c07-11d1-f79f-00c04fc2dcd2</field>
+    <description>KRITIK SALDIRI: Olası DCSync Saldirisi! $(win.eventdata.subjectUserName) tarafindan $(win.eventdata.objectName) uzerinde.</description>
     <mitre>
-      <id>T1210</id>
-      <id>T1068</id>
+      <id>T1003.006</id>
     </mitre>
-    <group>exploit_attempt,gdpr_IV_35.7.d,gpg13_4.12,nist_800_53_SI.4,nist_800_53_SI.2,pci_dss_11.4,pci_dss_6.2,tsc_CC6.1,tsc_CC6.8,tsc_CC7.2,tsc_CC7.3,</group>
+    <group>attack,credential_dumping,gdpr_IV_32.2,</group>
+    <options>alert_by_email</options>
   </rule>
 
-  <rule id="5710" level="5" overwrite="yes">
-    <if_sid>5700</if_sid>
-    <match>illegal user|invalid user</match>
-    <description>sshd: Mevcut olmayan bir kullanıcıyla giriş yapma girişimi.</description>
+  <rule id="100138" level="10" overwrite="yes">
+    <if_sid>60137</if_sid>
+    <field name="win.system.eventID">4697</field>
+    <description>DIKKAT: Sisteme Yeni Bir Servis Yuklendi - $(win.eventdata.serviceName) (Dosya: $(win.eventdata.serviceFileName))</description>
     <mitre>
-      <id>T1110.001</id>
-      <id>T1021.004</id>
+      <id>T1543.003</id>
     </mitre>
-    <group>authentication_failed,gdpr_IV_35.7.d,gdpr_IV_32.2,gpg13_7.1,hipaa_164.312.b,invalid_login,nist_800_53_AU.14,nist_800_53_AC.7,nist_800_53_AU.6,pci_dss_10.2.4,pci_dss_10.2.5,pci_dss_10.6.1,tsc_CC6.1,tsc_CC6.8,tsc_CC7.2,tsc_CC7.3,</group>
-  </rule>
-
-  <rule id="5712" level="13" frequency="8" timeframe="120" ignore="60" overwrite="yes">
-    <if_matched_sid>5710</if_matched_sid>
-    <same_source_ip />
-    <description>sshd: Var olmayan kullanıcıyla sistem erişim denemesi — brute force saldırısı.</description>
-    <mitre>
-      <id>T1110</id>
-    </mitre>
-    <group>authentication_failures,gdpr_IV_35.7.d,gdpr_IV_32.2,hipaa_164.312.b,nist_800_53_SI.4,nist_800_53_AU.14,nist_800_53_AC.7,pci_dss_11.4,pci_dss_10.2.4,pci_dss_10.2.5,tsc_CC6.1,tsc_CC6.8,tsc_CC7.2,tsc_CC7.3,</group>
-  </rule>
-  
-  <rule id="5719" level="10" frequency="8" timeframe="120" ignore="60" overwrite="yes">
-    <if_matched_sid>5718</if_matched_sid>
-    <description>sshd: Reddedilmiş kullanıcıyla çoklu erişim denemesi.</description>
-    <mitre>
-      <id>T1110</id>
-    </mitre>
-    <group>gdpr_IV_35.7.d,gdpr_IV_32.2,gpg13_7.1,hipaa_164.312.b,invalid_login,nist_800_53_AU.14,nist_800_53_AC.7,nist_800_53_SI.4,pci_dss_10.2.4,pci_dss_10.2.5,pci_dss_11.4,tsc_CC6.1,tsc_CC6.8,tsc_CC7.2,tsc_CC7.3,</group>
-  </rule>
-
-  <rule id="5731" level="6" overwrite="yes">
-    <if_sid>5700</if_sid>
-    <match>AKASSH_Version_Mapper1.</match>
-    <description>sshd: SSH tarama faaliyeti tespit edildi.</description>
-    <mitre>
-      <id>T1046</id>
-    </mitre>
-    <group>gdpr_IV_35.7.d,nist_800_53_SI.4,tsc_CC6.1,tsc_CC6.8,pci_dss_11.4,recon,tsc_CC7.2,tsc_CC7.3,</group>
-  </rule>
-
-  <rule id="5760" level="5" overwrite="yes">
-    <if_sid>5700,5716</if_sid>
-    <match>Failed password|Failed keyboard|authentication error</match>
-    <description>sshd: Kimlik doğrulama başarısız oldu.</description>
-    <mitre>
-      <id>T1110.001</id>
-      <id>T1021.004</id>
-    </mitre>
-    <group>authentication_failed,gdpr_IV_35.7.d,gdpr_IV_32.2,gpg13_7.1,hipaa_164.312.b,nist_800_53_AU.14,nist_800_53_AC.7,pci_dss_10.2.4,pci_dss_10.2.5,tsc_CC6.1,tsc_CC6.8,tsc_CC7.2,tsc_CC7.3,</group>
-  </rule>
-
-  <rule id="5763" level="10" frequency="8" timeframe="120" ignore="60" overwrite="yes">
-    <if_matched_sid>5760</if_matched_sid>
-    <same_source_ip/>
-    <description>sshd: Kimlik doğrulama hatasıyla brute force saldırısı tespit edildi.</description>
-    <mitre>
-      <id>T1110</id>
-    </mitre>
-    <group>authentication_failures,gdpr_IV_35.7.d,gdpr_IV_32.2,hipaa_164.312.b,nist_800_53_SI.4,nist_800_53_AU.14,nist_800_53_AC.7,pci_dss_11.4,pci_dss_10.2.4,pci_dss_10.2.5,tsc_CC6.1,tsc_CC6.8,tsc_CC7.2,tsc_CC7.3,</group>
+    <group>service_installation,persistence,pci_dss_10.2.7,</group>
+    <options>alert_by_email</options>
   </rule>
 
 </group>
 
-<!-- Windows Active Directory Kuralları -->
-<group name="windows,windows_security,">
-  
-  <!-- Hesap Kilitleme (Event ID 4740) -->
-  <rule id="60114" level="13" overwrite="yes">
-<if_sid>60103</if_sid>
-    <field name="win.system.eventID">4740</field>
-    <description>KRİTİK: Hesap Kilitlendi - $(win.eventdata.targetUserName)</description>
-    <group>account_lockout</group>
+
+<group name="rdp_monitor,">
+
+  <rule id="100024" level="10">
+  	<match>RDP active session:</match>
+  	<description>RDP aktif oturum tespit edildi</description>
+  	<mitre>
+      <id>T1021.001</id>
+  	</mitre>
+  	<group>pci_dss_10.2.5,</group>
+  	<options>alert_by_email</options>
+  </rule>
+
+  <rule id="100025" level="11">
+  	<match>RDP failed login attempt:</match>
+  	<description>RDP basarisiz giris denemesi</description>
+  	<mitre>
+      <id>T1110</id>
+      <id>T1021.001</id>
+  	</mitre>
+  	<group>authentication_failed,pci_dss_10.2.4,pci_dss_10.2.5,</group>
+  	<options>alert_by_email</options>
+  </rule>
+
+  <rule id="100026" level="10">
+  	<match>RDP successful connection:</match>
+  	<description>RDP basarili baglanti</description>
+  	<mitre>
+      <id>T1021.001</id>
+  	</mitre>
+  	<group>authentication_success,pci_dss_10.2.5,</group>
+  	<options>alert_by_email</options>
+  </rule>
+
+  <rule id="100032" level="13" frequency="5" timeframe="300">
+  	<if_matched_sid>100025</if_matched_sid>
+  	<same_source_ip />
+  	<description>KRITIK: RDP Brute Force Saldirisi tespit edildi</description>
+  	<mitre>
+      <id>T1110</id>
+      <id>T1021.001</id>
+  	</mitre>
+  	<group>authentication_failures,pci_dss_11.4,</group>
+  	<options>alert_by_email</options>
+  </rule>
+
+</group>
+
+
+<group name="exchange,powershell,iis,">
+
+  <rule id="100200" level="12">
+    <field name="win.system.providerName">MSExchange Management</field>
+    <field name="win.system.eventID">6</field> <match>New-MailboxExportRequest</match>
+    <description>EXCHANGE SALDIRI: $(win.eventdata.param1) kullanicisi Mailbox Disa Aktarma istegi baslatti. (Olası Veri Sızıntısı)</description>
     <mitre>
-      <id>T1110.001</id>
+      <id>T1567.002</id>
+      <id>T1114.002</id>
     </mitre>
+    <group>exchange,powershell,data_theft,</group>
     <options>alert_by_email</options>
   </rule>
 
-  <!-- Grup Üyelik Değişikliği (Event ID 4728) -->
-  <rule id="60141" level="13" overwrite="yes">
- <if_sid>60113</if_sid>
-    <field name="win.system.eventID">4728</field>
-    <description>Grup Üyeliği Değişti: $(win.eventdata.targetUserName)</description>
-    <group>group_membership</group>
+  <rule id="100201" level="13">
+    <field name="win.system.providerName">MSExchange Management</field>
+    <field name="win.system.eventID">6</field> <match>Add-PSSnapin Microsoft.Exchange.Management.PowerShell.E2010</match>
+    <description>EXCHANGE SALDIRI: Supheli PowerShell Snap-in yuklendi! (Bilinen Saldiri Yontemi)</description>
     <mitre>
-      <id>T1098.002</id>
+      <id>T1059.001</id>
     </mitre>
+    <group>exchange,powershell,attack,</group>
     <options>alert_by_email</options>
   </rule>
 
-  <!-- Yeni Hesap Oluşturma (Event ID 4720) -->
-<rule id="60109" level="13" overwrite="yes">
-    <field name="win.system.eventID">4720</field>
-    <description>Yeni Hesap: $(win.eventdata.targetUserName)</description>
-    <group>account_creation</group>
+  <rule id="100300" level="14">
+    <if_group>iis</if_group>
+    <field name="data.sc_status">200</field> <regex type="pcre2">(?i)\/owa\/auth\/.*\.aspx</regex>
+    <description>KRITIK EXCHANGE SALDIRISI: OWA klasorunde bir Web Shell'e erisildi! (IP: $(srcip), URL: $(data.cs_uri_stem))</description>
     <mitre>
-      <id>T1136</id>
+      <id>T1505.003</id>
     </mitre>
+    <group>exchange,iis,web_attack,hafnium,</group>
     <options>alert_by_email</options>
   </rule>
 
-  <!-- Hesap Silme (Event ID 4726) -->
-<rule id="60111" level="13" overwrite="yes">
-    <if_sid>60103</if_sid> 
-    <field name="win.system.eventID">4726</field>
-    <description>Hesap Silindi: $(win.eventdata.targetUserName)</description>
-    <group>account_deletion</group>
-    <mitre>
-      <id>T1531</id>
-    </mitre>
-    <options>alert_by_email</options>
-  </rule>
-
-  <!-- Hesap Devre Dışı Bırakma (Event ID 4725) -->
- <rule id="60111" level="13" overwrite="yes">
-    <if_sid>60103</if_sid>
-    <field name="win.system.eventID">4725</field>
-    <description>Hesap Devre Dışı Bırakıldı: $(win.eventdata.targetUserName)</description>
-    <group>account_disable</group>
-    <mitre>
-      <id>T1531</id>
-    </mitre>
-    <options>alert_by_email</options>
-  </rule>
-
-  <!-- Hesap Kilidini Açma (Event ID 4767) -->
-<rule id="60133" level="8" overwrite="yes">
-    <if_sid>60103</if_sid>
-    <field name="win.system.eventID">4767</field>
-    <description>Hesap Kilidi Açıldı: $(win.eventdata.targetUserName)</description>
-    <group>account_unlock</group>
-    <mitre>
-      <id>T1098</id>
-    </mitre>
-    <options>alert_by_email</options>
-  </rule>
-
-<!-- This rule detects Keberoasting attacks using windows security event on the domain controller -->
- <rule id="60106" level="3" overwrite="yes">
-    <if_sid>60103</if_sid>
-    <field name="win.system.eventID">^4769$</field>
-    <field name="win.eventdata.TicketOptions" type="pcre2">0x40810000</field>
-    <field name="win.eventdata.TicketEncryptionType" type="pcre2">0x17</field>
-    <options>no_full_log</options>
-    <description>Possible Keberoasting attack w/ elevated user account</description>
-  </rule>
-
-  <rule id="110010" level="12" overwrite="yes">
-    <decoded_as>json</decoded_as>
-    <if_sid>110004</if_sid>
-    <list field="data.win.eventdata.targetUserName" lookup="match_key">etc/lists/elevated_users</list>
-    <description>Possible Keberoasting attack w/ elevated user account</description>
-  </rule>
-
-  <rule id="110011" level="3" overwrite="yes">
-    <decoded_as>json</decoded_as>
-    <if_sid>110004</if_sid>
-    <list field="data.win.eventdata.targetUserName" lookup="not_match_key">etc/lists/elevated_users</list>
-    <description>Possible Keberoasting attack w/ non-elevated user account</description>
-  </rule>
-
-
-
-
-  <!-- Brute Force Saldırıları (Event ID 4625) -->
-   <rule id="60105" level="5">
-    <if_sid>60104</if_sid>  
-      <field name="win.system.eventID">4625</field>
-    <description>BRUTE FORCE: $(win.eventdata.targetUserName) - IP=$(win.eventdata.ipAddress)</description>
-    <mitre>
-      <id>T1110</id>
-    </mitre>
-    <group>authentication_failure</group>
-    <options>alert_by_email</options>
-  </rule>
-
-  <!-- Pass-the-Hash (Event ID 4624 + Anormal Saat) -->
- <rule id="60106" level="3" overwrite="yes">
-    <if_sid>60103</if_sid>
-    <field name="win.system.eventID">4624</field>
-    <field name="win.eventdata.logonType">3</field>
-    <time>21:00-06:00</time>
-    <description>PASS-THE-HASH Şüphesi: $(win.eventdata.targetUserName)</description>
-    <mitre>
-      <id>T1550.002</id>
-    </mitre>
-    <options>alert_by_email</options>
-  </rule>
-
-  
-  <!-- Golden Ticket (Event ID 4769 + Ticket Flags) -->
-  
-   <rule id="60106" level="3" overwrite="yes">
-    <if_sid>60103</if_sid>
-    <field name="win.system.eventID">4769</field>
-    <field name="win.eventdata.ticketOptions">0x60</field>
-    <field name="win.eventdata.ticketEncryptionType">0x17</field>
-    <description>GOLDEN TICKET: $(win.eventdata.targetUserName)</description>
-    <mitre>
-      <id>T1558.001</id>
-    </mitre>
-    <options>alert_by_email</options>
-  </rule>
-
-  <!-- Persistence (Zamanlanmış Görev - Event ID 4698) -->
-   <rule id="60228" level="4" overwrite="yes">
-    <if_sid>60103</if_sid>
-      <field name="win.system.eventID">4698</field>
-    <description>PERSISTENCE: Yeni zamanlanmış görev - $(win.eventdata.taskName)</description>
-    <mitre>
-      <id>T1053.005</id>
-    </mitre>
-    <options>alert_by_email</options>
-  </rule>
-
- 
-
-  <rule id="60159" level="13" overwrite="yes">
- <if_sid>60141,60142</if_sid>
-    <field name="win.system.eventID">4728</field>
-    <description>⚠️ KRİTİK (OVERRIDE): Grup üyeliği değişti → $(win.eventdata.MemberName)</description>
-    <group>group_membership</group>
-    <mitre>
-      <id>T1098.002</id>
-    </mitre>
-    <options>alert_by_email</options>
-  </rule>
-  
-   <!-- Domain Admins Grubundan Çıkarılma (Event ID 4729) -->
-  <rule id="60142" level="13" overwrite="yes">
- <if_sid>60113</if_sid>
-        <field name="win.system.eventID">4729</field>
-    <field name="win.eventdata.GroupName">Domain Admins</field>
-    <description>⚠️ KRİTİK: Domain Admins grubundan üye çıkarıldı → $(win.eventdata.MemberName)</description>
-    <group>group_membership</group>
-    <mitre>
-      <id>T1098.002</id>
-    </mitre>
-    <options>alert_by_email</options>
-  </rule>
 </group>
