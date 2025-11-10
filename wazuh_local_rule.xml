@@ -7,69 +7,69 @@
     <mitre>
       <id>T1190</id>
     </mitre>
-    <group>gdpr_IV_35.7.d,gpg13_4.12,nist_800_53_SI.4,pci_dss_11.4,recon,tsc_CC6.1,tsc_CC6.8,tsc_CC7.2,tsc_CC7.3,</group>
+  	<group>gdpr_IV_35.7.d,gpg13_4.12,nist_800_53_SI.4,pci_dss_11.4,recon,tsc_CC6.1,tsc_CC6.8,tsc_CC7.2,tsc_CC7.3,</group>
   </rule>
 
   <rule id="5707" level="14" overwrite="yes">
     <if_sid>5700</if_sid>
     <match>fatal: buffer_get_string: bad string</match>
     <description>sshd: OpenSSH challenge-response zafiyet istismari.</description>
-    <mitre>
+  	<mitre>
       <id>T1210</id>
       <id>T1068</id>
-    </mitre>
-    <group>exploit_attempt,gdpr_IV_35.7.d,gpg13_4.12,nist_800_53_SI.4,nist_800_53_SI.2,pci_dss_11.4,pci_dss_6.2,tsc_CC6.1,tsc_CC6.8,tsc_CC7.2,tsc_CC7.3,</group>
-    <options>alert_by_email</options>
-  </rule>
+  	</mitre>
+  	<group>exploit_attempt,gdpr_IV_35.7.d,gpg13_4.12,nist_800_53_SI.4,nist_800_53_SI.2,pci_dss_11.4,pci_dss_6.2,tsc_CC6.1,tsc_CC6.8,tsc_CC7.2,tsc_CC7.3,</group>
+  	<options>alert_by_email</options>
+  </rule>
 
   <rule id="5710" level="5" overwrite="yes">
-    <if_sid>5700</if_sid>
-    <match>illegal user|invalid user</match>
-    <description>sshd: Mevcut olmayan bir kullaniciyla giris yapma girisimi.</description>
-    <mitre>
+  	<if_sid>5700</if_sid>
+  	<match>illegal user|invalid user</match>
+  	<description>sshd: Mevcut olmayan bir kullaniciyla giris yapma girisimi.</description>
+  	<mitre>
       <id>T1110.001</id>
-    </mitre>
-    <group>authentication_failed,invalid_login,pci_dss_10.2.4,pci_dss_10.2.5,</group>
+  	</mitre>
+  	<group>authentication_failed,invalid_login,pci_dss_10.2.4,pci_dss_10.2.5,</group>
   </rule>
   <rule id="5760" level="5" overwrite="yes">
-    <if_sid>5700,5716</if_sid>
-    <match>Failed password|Failed keyboard|authentication error</match>
-    <description>sshd: Kimlik dogrulama basarisiz oldu.</description>
-    <mitre>
+  	<if_sid>5700,5716</if_sid>
+  	<match>Failed password|Failed keyboard|authentication error</match>
+  	<description>sshd: Kimlik dogrulama basarisiz oldu.</description>
+  	<mitre>
       <id>T1110.001</id>
-    </mitre>
-    <group>authentication_failed,pci_dss_10.2.4,pci_dss_10.2.5,</group>
+  	</mitre>
+  	<group>authentication_failed,pci_dss_10.2.4,pci_dss_10.2.5,</group>
   </rule>
 
   <rule id="5712" level="13" frequency="8" timeframe="120" ignore="60" overwrite="yes">
-    <if_matched_sid>5710</if_matched_sid>
-    <same_source_ip />
-    <description>sshd: Var olmayan kullaniciyla sistem erisim denemesi - brute force saldirisi.</description>
-    <mitre>
+  	<if_matched_sid>5710</if_matched_sid>
+  	<same_source_ip />
+  	<description>sshd: Var olmayan kullaniciyla sistem erisim denemesi - brute force saldirisi.</description>
+  	<mitre>
       <id>T1110</id>
-    </mitre>
-    <group>authentication_failures,pci_dss_11.4,pci_dss_10.2.4,pci_dss_10.2.5,</group>
-    <options>alert_by_email</options>
+  	</mitre>
+  	<group>authentication_failures,pci_dss_11.4,pci_dss_10.2.4,pci_dss_10.2.5,</group>
+  	<options>alert_by_email</options>
   </rule>
   <rule id="5763" level="10" frequency="8" timeframe="120" ignore="60" overwrite="yes">
-    <if_matched_sid>5760</if_matched_sid>
-    <same_source_ip/>
-    <description>sshd: Kimlik dogrulama hatasiyla brute force saldirisi tespit edildi.</description>
-    <mitre>
+  	<if_matched_sid>5760</if_matched_sid>
+  	<same_source_ip/>
+  	<description>sshd: Kimlik dogrulama hatasiyla brute force saldirisi tespit edildi.</description>
+  	<mitre>
       <id>T1110</id>
-    </mitre>
-    <group>authentication_failures,pci_dss_11.4,pci_dss_10.2.4,pci_dss_10.2.5,</group>
-    <options>alert_by_email</options>
+  	</mitre>
+  	<group>authentication_failures,pci_dss_11.4,pci_dss_10.2.4,pci_dss_10.2.5,</group>
+  	<options>alert_by_email</options>
   </rule>
   <rule id="100102" level="13">
-    <if_group>sshd</if_group>
-    <regex type="pcre2">Accepted (password|publickey) for root</regex>
-    <description>KRITIK: Linux SSH root login basarili</description>
-    <mitre>
+  	<if_group>sshd</if_group>
+  	<regex type="pcre2">Accepted (password|publickey) for root</regex>
+  	<description>KRITIK: Linux SSH root login basarili</description>
+  	<mitre>
       <id>T1078.003</id>
-    </mitre>
-    <group>authentication_success,pci_dss_10.2.5,</group>
-    <options>alert_by_email</options>
+  	</mitre>
+  	<group>authentication_success,pci_dss_10.2.5,</group>
+  	<options>alert_by_email</options>
   </rule>
 
 </group>
@@ -77,15 +77,15 @@
 
 <group name="windows,windows_security,ad,">
   
-  <rule id="60114" level="13" overwrite="yes">
+    <rule id="60114" level="13" overwrite="yes">
     <if_sid>60103</if_sid>
     <field name="win.system.eventID">4740</field>
     <description>KRITIK: Hesap Kilitlendi - $(win.eventdata.targetUserName)</description>
-    <group>account_lockout,pci_dss_10.2.4,pci_dss_10.2.5,</group>
-    <mitre>
+  	<group>account_lockout,pci_dss_10.2.4,pci_dss_10.2.5,</group>
+  	<mitre>
       <id>T1110.001</id>
-    </mitre>
-    <options>alert_by_email</options>
+  	</mitre>
+  	<options>alert_by_email</options>
   </rule>
   <rule id="60142" level="13" overwrite="yes">
   	<if_sid>60113</if_sid>
@@ -98,48 +98,47 @@
   	</mitre>
   	<options>alert_by_email</options>
   </rule>
-  <rule id="100117" level="13">
-    <if_sid>60004</if_sid>
-    <field name="win.system.eventID">1102</field>
-    <description>KRITIK GUVENLIK OLAYI: Denetim Gunlugu (Security Log) Temizlendi! $(win.data.user.name) tarafindan.</description>
-    <mitre>
-      <id>T1070.001</id>
-    </mitre>
-    <group>audit_cleared,pci_dss_10.2.5,gdpr_IV_32.2,</group>
-    <options>alert_by_email</options>
-  </rule>
-  <rule id="100662" level="14">
-    <if_sid>60158</if_sid>
-    <field name="win.system.eventID">4662</field>
-    <field name="win.eventdata.properties" type="pcre2">(?i)1131f6ad-9c07-11d1-f79f-00c04fc2dcd2</field>
-    <description>KRITIK SALDIRI: Olası DCSync Saldirisi! $(win.eventdata.subjectUserName) tarafindan $(win.eventdata.objectName) uzerinde.</description>
-    <mitre>
-      <id>T1003.006</id>
-    </mitre>
-    <group>attack,credential_dumping,gdpr_IV_32.2,</group>
-    <options>alert_by_email</options>
-  </rule>
-  <rule id="100138" level="10">
-    <if_sid>60137</if_sid>
-    <field name="win.system.eventID">4697</field>
-    <description>DIKKAT: Sisteme Yeni Bir Servis Yuklendi - $(win.eventdata.serviceName) (Dosya: $(win.eventdata.serviceFileName))</description>
-    <mitre>
-      <id>T1543.003</id>
-    </mitre>
-    <group>service_installation,persistence,pci_dss_10.2.7,</group>
-    <options>alert_by_email</options>
-  </rule>
-  
+  <rule id="100117" level="13">
+    <if_sid>60004</if_sid>
+    <field name="win.system.eventID">1102</field>
+    <description>KRITIK GUVENLIK OLAYI: Denetim Gunlugu (Security Log) Temizlendi! $(win.data.user.name) tarafindan.</description>
+  	<mitre>
+      <id>T1070.001</id>
+  	</mitre>
+  	<group>audit_cleared,pci_dss_10.2.5,gdpr_IV_32.2,</group>
+  	<options>alert_by_email</options>
+  </rule>
+  <rule id="100662" level="14">
+    <if_sid>60158</if_sid>
+    <field name="win.system.eventID">4662</field>
+    <field name="win.eventdata.properties" type="pcre2">(?i)1131f6ad-9c07-11d1-f79f-00c04fc2dcd2</field>
+  	<description>KRITIK SALDIRI: Olası DCSync Saldirisi! $(win.eventdata.subjectUserName) tarafindan $(win.eventdata.objectName) uzerinde.</description>
+  	<mitre>
+      <id>T1003.006</id>
+  	</mitre>
+  	<group>attack,credential_dumping,gdpr_IV_32.2,</group>
+  	<options>alert_by_email</options>
+  </rule>
+  <rule id="100138" level="10">
+    <if_sid>60137</if_sid>
+    <field name="win.system.eventID">4697</field>
+  	<description>DIKKAT: Sisteme Yeni Bir Servis Yuklendi - $(win.eventdata.serviceName) (Dosya: $(win.eventdata.serviceFileName))</description>
+  	<mitre>
+      <id>T1543.003</id>
+  	</mitre>
+  	<group>service_installation,persistence,pci_dss_10.2.7,</group>
+  	<options>alert_by_email</options>
+  </rule>
   <rule id="60160" level="12" overwrite="yes">
     <field name="win.system.eventID">^4769$</field>
-    <field name="win.eventdata.TicketOptions" type="pcre2">0x40810000</field>
-    <field name="win.eventdata.TicketEncryptionType" type="pcre2">0x17</field>
-    <options>no_full_log</options>
-    <description>KRITIK: Olasi Kerberoasting saldirisi</description>
-    <mitre>
+  	<field name="win.eventdata.TicketOptions" type="pcre2">0x40810000</field>
+  	<field name="win.eventdata.TicketEncryptionType" type="pcre2">0x17</field>
+  	<options>no_full_log</options>
+  	<description>KRITIK: Olasi Kerberoasting saldirisi</description>
+  	<mitre>
       <id>T1558.003</id>
-    </mitre>
-    <options>alert_by_email</options>
+  	</mitre>
+  	<options>alert_by_email</options>
   </rule>
   <rule id="60162" level="13" overwrite="yes">
   	<field name="win.system.eventID">4624</field>
@@ -173,53 +172,68 @@
   	<options>alert_by_email</options>
   </rule>
 
-    <rule id="60141" level="13" overwrite="yes">
-    <if_sid>60113</if_sid>
-    <field name="win.system.eventID">4728</field>
-    <description>Grup Uyeligi Degisti: $(win.eventdata.targetUserName)</description>
-    <group>group_membership,pci_dss_10.2.5,</group>
-    <mitre>
-      <id>T1098.002</id>
-    </mitre>
-  </rule>
-  <rule id="60109" level="13" overwrite="yes">
-    <field name="win.system.eventID">4720</field>
-    <description>Yeni Hesap: $(win.eventdata.targetUserName)</description>
-    <group>account_creation,pci_dss_10.2.5,</group>
-    <mitre>
+    <rule id="60109" level="13" overwrite="yes">
+  	<field name="win.system.eventID">4720</field>
+  	<description>Yeni Hesap: $(win.eventdata.targetUserName)</description>
+  	<group>account_creation,pci_dss_10.2.5,</group>
+  	<mitre>
       <id>T1136</id>
-    </mitre>
+  	</mitre>
+    <options>alert_by_email</options>
   </rule>
   <rule id="60115" level="13" overwrite="yes">
-    <if_sid>60103</if_sid> 
-    <field name="win.system.eventID">4726</field>
-    <description>Hesap Silindi: $(win.eventdata.targetUserName)</description>
-    <group>account_deletion,pci_dss_10.2.5,</group>
-    <mitre>
+  	<if_sid>60103</if_sid> 
+  	<field name="win.system.eventID">4726</field>
+  	<description>Hesap Silindi: $(win.eventdata.targetUserName)</description>
+  	<group>account_deletion,pci_dss_10.2.5,</group>
+  	<mitre>
       <id>T1531</id>
-    </mitre>
+  	</mitre>
+    <options>alert_by_email</options>
   </rule>
   <rule id="60116" level="13" overwrite="yes">
-    <if_sid>60103</if_sid>
-    <field name="win.system.eventID">4725</field>
-    <description>Hesap Devre Disi Birakildi: $(win.eventdata.targetUserName)</description>
-    <group>account_disable,pci_dss_10.2.5,</group>
-    <mitre>
+  	<if_sid>60103</if_sid>
+  	<field name="win.system.eventID">4725</field>
+  	<description>Hesap Devre Disi Birakildi: $(win.eventdata.targetUserName)</description>
+  	<group>account_disable,pci_dss_10.2.5,</group>
+  	<mitre>
       <id>T1531</id>
-    </mitre>
+  	</mitre>
+    <options>alert_by_email</options>
   </rule>
+  <rule id="60108" level="13" overwrite="yes">
+    <if_sid>60103</if_sid>
+    <field name="win.system.eventID">4722</field>
+    <description>Hesap Aktif Edildi: $(win.eventdata.targetUserName)</description>
+    <group>account_modification,pci_dss_10.2.5,</group>
+    <mitre>
+      <id>T1098</id>
+    </mitre>
+    <options>alert_by_email</options>
+  </rule>
   <rule id="60133" level="8" overwrite="yes">
-    <if_sid>60103</if_sid>
-    <field name="win.system.eventID">4767</field>
-    <description>Hesap Kilidi Acildi: $(win.eventdata.targetUserName)</description>
-    <group>account_unlock,pci_dss_10.2.5,</group>
-    <mitre>
+  	<if_sid>60103</if_sid>
+  	<field name="win.system.eventID">4767</field>
+  	<description>Hesap Kilidi Acildi: $(win.eventdata.targetUserName)</description>
+  	<group>account_unlock,pci_dss_10.2.5,</group>
+  	<mitre>
       <id>T1098</id>
-    </mitre>
+  	</mitre>
+    <options>alert_by_email</options>
+  </rule>
+
+    <rule id="60141" level="13" overwrite="yes">
+  	<if_sid>60113</if_sid>
+  	<field name="win.system.eventID">4728</field>
+  	<description>Grup Uyeligi Degisti: $(win.eventdata.targetUserName)</description>
+  	<group>group_membership,pci_dss_10.2.5,</group>
+  	<mitre>
+      <id>T1098.002</id>
+  	</mitre>
   </rule>
   <rule id="60161" level="5" overwrite="yes">
-    <field name="win.system.eventID">4625</field>
-    <description>BRUTE FORCE (Tekil): $(win.eventdata.targetUserName) - IP=$(win.eventdata.ipAddress)</description>
+  	<field name="win.system.eventID">4625</field>
+  	<description>BRUTE FORCE (Tekil): $(win.eventdata.targetUserName) - IP=$(win.eventdata.ipAddress)</description>
   	<group>authentication_failure,pci_dss_10.2.4,pci_dss_10.2.5,</group>
   	<mitre>
       <id>T1110</id>
@@ -272,136 +286,249 @@
 
 <group name="exchange,powershell,iis,">
 
-  <rule id="100200" level="12">
-    <field name="win.system.providerName">MSExchange Management</field>
-    <field name="win.system.eventID">6</field>
-    <match>New-MailboxExportRequest</match>
-    <description>KRITIK EXCHANGE: $(win.eventdata.param1) kullanicisi Mailbox Disa Aktarma istegi baslatti. (Olası Veri Sızıntısı)</description>
-    <mitre>
-      <id>T1567.002</id>
-      <id>T1114.002</id>
-    </mitre>
-    <group>exchange,powershell,data_theft,</group>
-    <options>alert_by_email</options>
+  <rule id="100200" level="12">
+  	<field name="win.system.providerName">MSExchange Management</field>
+  	<field name="win.system.eventID">6</field>
+  	<match>New-MailboxExportRequest</match>
+  	<description>KRITIK EXCHANGE: $(win.eventdata.param1) kullanicisi Mailbox Disa Aktarma istegi baslatti. (Olası Veri Sızıntısı)</description>
+  	<mitre>
+      <id>T1567.002</id>
+      <id>T1114.002</id>
+  	</mitre>
+  	<group>exchange,powershell,data_theft,</group>
+  	<options>alert_by_email</options>
+  </rule>
+
+  <rule id="100201" level="13">
+  	<field name="win.system.providerName">MSExchange Management</field>
+  	<field name="win.system.eventID">6</field>
+  	<match>Add-PSSnapin Microsoft.Exchange.Management.PowerShell.E2010</match>
+  	<description>KRITIK EXCHANGE SALDIRISI: Supheli PowerShell Snap-in yuklendi! (Bilinen Saldiri Yontemi)</description>
+  	<mitre>
+      <id>T1059.001</id>
+  	</mitre>
+  	<group>exchange,powershell,attack,</group>
+  	<options>alert_by_email</options>
+  </rule>
+
+  <rule id="100300" level="14">
+  	<if_group>iis</if_group>
+  	<field name="data.sc_status">200</field>
+  	<regex type="pcre2">(?i)\/owa\/auth\/.*\.aspx</regex>
+  	<description>KRITIK EXCHANGE SALDIRISI: OWA klasorunde bir Web Shell'e erisildi! (IP: $(srcip), URL: $(data.cs_uri_stem))</description>
+  	<mitre>
+      <id>T1505.003</id>
+  	</mitre>
+  	<group>exchange,iis,web_attack,hafnium,</group>
+  	<options>alert_by_email</options>
+  </rule>
+
+  <rule id="100301" level="3">
+    <if_sid>31104</if_sid> 
+    <regex type="pcre2">POST /Microsoft-Server-ActiveSync/default\.eas .* 401 </regex>
+    <description>Exchange: Gürültülü ActiveSync 401 hatası (Outlook Mobil). Seviye 3'e düşürüldü.</description>
+    <group>iis,exchange,low_priority,authentication_failed,</group>
   </rule>
 
-  <rule id="100201" level="13">
-    <field name="win.system.providerName">MSExchange Management</field>
-    <field name="win.system.eventID">6</field>
-    <match>Add-PSSnapin Microsoft.Exchange.Management.PowerShell.E2010</match>
-    <description>KRITIK EXCHANGE SALDIRISI: Supheli PowerShell Snap-in yuklendi! (Bilinen Saldiri Yontemi)</description>
-    <mitre>
-      <id>T1059.001</id>
-    </mitre>
-    <group>exchange,powershell,attack,</group>
-    <options>alert_by_email</options>
+  <rule id="100302" level="3">
+    <if_sid>31104</if_sid> <location type="pcre2">W3SVC2</location> <regex type="pcre2">^(\S+) (\S+) (\S+) (\S+) (\S+) (\S+) (\S+) (\S+) (::1|127\.0\.0\.1|192\.168\.0\.175)</regex> 
+    <description>Exchange: Gürültülü Back End (localhost/self) Health Check 401 hatası. Seviye 3'e düşürüldü.</description>
+    <group>iis,exchange,low_priority,authentication_failed,</group>
   </rule>
 
-  <rule id="100300" level="14">
-    <if_group>iis</if_group>
-    <field name="data.sc_status">200</field>
-    <regex type="pcre2">(?i)\/owa\/auth\/.*\.aspx</regex>
-    <description>KRITIK EXCHANGE SALDIRISI: OWA klasorunde bir Web Shell'e erisildi! (IP: $(srcip), URL: $(data.cs_uri_stem))</description>
-    <mitre>
-      <id>T1505.003</id>
-    </mitre>
-    <group>exchange,iis,web_attack,hafnium,</group>
-    <options>alert_by_email</options>
+  <rule id="100303" level="3">
+    <if_sid>31104</if_sid> <regex type="pcre2">POST /EWS/Exchange\.asmx .* 401 </regex>
+    <description>Exchange: Gürültülü EWS 401 hatası (Outlook Masaüstü). Seviye 3'e düşürüldü.</description>
+    <group>iis,exchange,low_priority,authentication_failed,</group>
   </rule>
+  
+    <rule id="100304" level="0" overwrite="yes">
+    <if_sid>31151</if_sid>
+    <description>Exchange: Gürültülü 400 hata uyarısı devre dışı bırakıldı (Outlook mobil eşitleme).</description>
+  </rule>
+
 
 </group>
 
 <group name="fortigate,">
 
-  <rule id="100400" level="8">
-    <if_sid>80700</if_sid> 
-    <field name="data.type">event</field>
-    <field name="data.subtype">system</field>
-    <field name="data.action">login</field>
-    <field name="data.status">failed</field> <description>FortiGate: ADMIN arayuzune basarisiz giris denemesi. (Kullanici: $(user), IP: $(srcip))</description>
-    <group>authentication_failed,pci_dss_10.2.4,pci_dss_10.2.5,</group>
+  <rule id="100400" level="8">
+  	<if_sid>80700</if_sid> 
+  	<field name="data.type">event</field>
+  	<field name="data.subtype">system</field>
+  	<field name="data.action">login</field>
+  	<field name="data.status">failed</field> 
+    <description>FortiGate: ADMIN arayuzune basarisiz giris denemesi. (Kullanici: $(user), IP: $(srcip))</description>
+  	<group>authentication_failed,pci_dss_10.2.4,pci_dss_10.2.5,</group>
+ <options>alert_by_email</options>
+  </rule>
+
+  <rule id="100401" level="10">
+  	<if_sid>80700</if_sid>
+  	<field name="data.type">event</field>
+  	<field name="data.subtype">system</field>
+  	<field name="data.action">login</field>
+  	<field name="data.status">success</field> 
+    <description>FortiGate: ADMIN arayuzune basarili giris. (Kullanici: $(user), IP: $(srcip))</description>
+  	<group>authentication_success,pci_dss_10.2.5,</group>
+  	<options>alert_by_email</options>
+  </rule>
+
+  <rule id="100402" level="13">
+  	<if_sid>80700</if_sid>
+  	<field name="data.logid">0100032002</field> 
+  	<description>KRITIK: FortiGate Konfigurasyonu Degistirildi! (Kullanici: $(user), IP: $(srcip))</description>
+  	<mitre>
+      <id>T1098</id>
+  	</mitre>
+  	<group>configuration_change,pci_dss_10.2.7,</group>
+  	<options>alert_by_email</options>
+  </rule>
+
+  <rule id="100403" level="5">
+  	<if_sid>80700</if_sid>
+  	<field name="data.type">vpn</field>
+  	<field name="data.subtype">ssl</field>
+  	<field name="data.action">login</field>
+  	<field name="data.status">failed</field> 
+    <description>FortiGate: SSL VPN basarisiz giris denemesi. (Kullanici: $(user), IP: $(srcip))</description>
+  	<group>authentication_failed,pci_dss_10.2.4,pci_dss_10.2.5,</group>
+  <options>alert_by_email</options>
+  </rule>
+
+  <rule id="100405" level="13" frequency="10" timeframe="120">
+  	<if_matched_sid>100403</if_matched_sid>
+  	<same_source_ip />
+  	<description>KRITIK: FortiGate SSL VPN Brute Force Saldirisi! (IP: $(srcip))</description>
+  	<mitre>
+      <id>T1110</id>
+  	</mitre>
+  	<group>authentication_failures,pci_dss_11.4,</group>
+  	<options>alert_by_email</options>
+  </rule>
+
+  <rule id="100410" level="12">
+  	<if_sid>80700</if_sid>
+  	<field name="data.type">utm</field>
+  	<field name="data.subtype">ips</field>
+  	<field name="data.severity">critical</field> 
+  	<description>KRITIK (IPS): FortiGate Kritik Saldiri Girisimi Tespit Etti! (Imza: $(signature), $(srcip) -> $(dstip))</description>
+  	<mitre>
+      <id>T1190</id>
+  	</mitre>
+  	<group>ips,attack,pci_dss_11.4,</group>
+  	<options>alert_by_email</options>
+  </rule>
+
+  <rule id="100411" level="12">
+  	<if_sid>80700</if_sid>
+  	<field name="data.type">utm</field>
+  	<field name="data.subtype">virus</field>
+  	<field name="data.action">blocked</field>
+  	<description>KRITIK (AV): FortiGate Malware Tespit Etti ve Engelledi! (Virus: $(virus), IP: $(srcip))</description>
+  	<mitre>
+      <id>T1204.002</id>
+  	</mitre>
+  	<group>virus,malware,pci_dss_5.1,</group>
+  	<options>alert_by_email</options>
+  </rule>
+  
+  <rule id="100412" level="10">
+  	<if_sid>80700</if_sid>
+  	<field name="data.type">utm</field>
+  	<field name="data.subtype">webfilter</field>
+  	<field name="data.action">blocked</field>
+  	<field name="data.catdesc" type="pcre2">Phishing|Command.and.Control</field>
+  	<description>DIKKAT (WebFilter): FortiGate Phishing/C2 Erisimini Engelledi. (IP: $(srcip), Host: $(hostname))</description>
+  	<mitre>
+      <id>T1566.002</id>
+      <id>T1071.001</id>
+  	</mitre>
+  	<group>webfilter,phishing,c2,</group>
+  	<options>alert_by_email</options>
+  </rule>
+
+</group>
+
+<group name="fim,ransomware,">
+
+  <rule id="100500" level="12">
+  	<if_group>syscheck</if_group>
+  	<field name="win.eventdata.subjectUserName" type="pcre2">.+</field> 
+  	<field name="file.name" type="pcre2">(?i)DECRYPT_|\.txt$|\.html$|README_TO_DECRYPT|HOW_TO_RECOVER</field>
+  	<description>KRITIK (RANSOMWARE): Supheli Fidye Notu Dosyasi Olusturuldu! ($(file.name)) - Kullanici: $(win.eventdata.subjectUserName)</description>
+  	<mitre>
+      <id>T1486</id>
+  	</mitre>
+  	<options>alert_by_email</options>
+  </rule>
+
+    <rule id="100501" level="13" frequency="50" timeframe="60">
+  	<if_matched_sid>550</if_matched_sid>
+  	<same_field>win.eventdata.subjectUserName</same_field>
+  	<description>KRITIK (RANSOMWARE): Toplu Dosya Sifreleme Aktivitesi Tespit Edildi! (Kullanici: $(win.eventdata.subjectUserName))</description>
+  	<mitre>
+      <id>T1486</id>
+  	</mitre>
+  	<options>alert_by_email</options>
+  </rule>
+
+</group>
+
+<group name="endpoint,usb,">
+
+g   <rule id="100505" level="8">
+  	<if_sid>60004</if_sid> 
+    <field name="win.system.eventID">^2003$</field>
+  	<field name="win.system.providerName">Microsoft-Windows-DriverFrameworks-UserMode</field>
+  	<match>USBSTOR\DISK</match>
+  	<description>DIKKAT: Sisteme bir USB Depolama Cihazi (Disk) takildi.</description>
+NT   	<mitre>
+      <id>T1091</id>
+  	</mitre>
+  	<options>alert_by_email</options>
+  </rule>
+
+</group>
+
+<group name="erp,sap,eta,">
+
+  <rule id="100510" level="12">
+  	<if_sid>60137</if_sid>
+  	<field name="win.system.eventID">4624</field>
+  	<field name="win.eventdata.logonType">10</field> 
+    <group>sap_eta_servers,</group> 
+    <description>KRITIK (ERP): SAP/ETA Sunucusuna RDP Baglantisi yapildi! (Kullanici: $(win.eventdata.targetUserName), Kaynak IP: $(win.eventdata.ipAddress))</description>
+  	<mitre>
+      <id>T1021.001</id>
+  	</mitre>
+  	<options>alert_by_email</options>
+  </rule>
+  
+    <rule id="100511" level="12">
+  	<if_matched_sid>550</if_matched_sid>
+  	<group>sap_eta_servers,</group> 
+    <description>KRITIK (ERP): SAP/ETA Uygulama Dosyasi Degistirildi! ($(file.name)) - Kullanici: $(win.eventdata.subjectUserName)</description>
+  	<mitre>
+      <id>T1098</id>
+  	</mitre>
+  	<options>alert_by_email</options>
+  </rule>
+</group>
+
+<group name="apache,zabbix,">
+
+  <rule id="100305" level="3">
+    <if_sid>31508</if_sid> 
+    <regex type="pcre2">"POST /zabbix/(zabbix\.php|jsrpc\.php)</regex>
+    <description>Zabbix: Gürültülü Dashboard POST isteği (AJAX/RPC). Seviye 3'e düşürüldü.</description>
+    <group>apache,zabbix,low_priority,</group>
   </rule>
 
-  <rule id="100401" level="10">
-    <if_sid>80700</if_sid>
-    <field name="data.type">event</field>
-    <field name="data.subtype">system</field>
-    <field name="data.action">login</field>
-    <field name="data.status">success</field> <description>FortiGate: ADMIN arayuzune basarili giris. (Kullanici: $(user), IP: $(srcip))</description>
-    <group>authentication_success,pci_dss_10.2.5,</group>
-    <options>alert_by_email</options>
+  <rule id="100306" level="0" overwrite="yes">
+    <if_sid>31533</if_sid>
+    <description>Zabbix: Çoklu POST isteği kuralı devre dışı bırakıldı (false positive - widget refresh).</description>
   </rule>
 
-  <rule id="100402" level="13">
-    <if_sid>80700</if_sid>
-    <field name="data.logid">0100032002</field> 
-    <description>KRITIK: FortiGate Konfigurasyonu Degistirildi! (Kullanici: $(user), IP: $(srcip))</description>
-    <mitre>
-      <id>T1098</id>
-    </mitre>
-    <group>configuration_change,pci_dss_10.2.7,</group>
-    <options>alert_by_email</options>
-  </rule>
-
-  <rule id="100403" level="5">
-    <if_sid>80700</if_sid>
-    <field name="data.type">vpn</field>
-    <field name="data.subtype">ssl</field>
-    <field name="data.action">login</field>
-    <field name="data.status">failed</field> <description>FortiGate: SSL VPN basarisiz giris denemesi. (Kullanici: $(user), IP: $(srcip))</description>
-    <group>authentication_failed,pci_dss_10.2.4,pci_dss_10.2.5,</group>
-  </rule>
-
-  <rule id="100405" level="13" frequency="10" timeframe="120">
-    <if_matched_sid>100403</if_matched_sid>
-    <same_source_ip />
-    <description>KRITIK: FortiGate SSL VPN Brute Force Saldirisi! (IP: $(srcip))</description>
-    <mitre>
-      <id>T1110</id>
-    </mitre>
-    <group>authentication_failures,pci_dss_11.4,</group>
-    <options>alert_by_email</options>
-  </rule>
-
-  <rule id="100410" level="12">
-    <if_sid>80700</if_sid>
-    <field name="data.type">utm</field>
-    <field name="data.subtype">ips</field>
-    <field name="data.severity">critical</field> 
-    <description>KRITIK (IPS): FortiGate Kritik Saldiri Girisimi Tespit Etti! (Imza: $(signature), $(srcip) -> $(dstip))</description>
-    <mitre>
-      <id>T1190</id>
-    </mitre>
-    <group>ips,attack,pci_dss_11.4,</group>
-    <options>alert_by_email</options>
-  </rule>
-
-  <rule id="100411" level="12">
-    <if_sid>80700</if_sid>
-    <field name="data.type">utm</field>
-    <field name="data.subtype">virus</field>
-    <field name="data.action">blocked</field>
-    <description>KRITIK (AV): FortiGate Malware Tespit Etti ve Engelledi! (Virus: $(virus), IP: $(srcip))</description>
-    <mitre>
-      <id>T1204.002</id>
-    </mitre>
-    <group>virus,malware,pci_dss_5.1,</group>
-    <options>alert_by_email</options>
-  </rule>
-  
-  <rule id="100412" level="10">
-    <if_sid>80700</if_sid>
-    <field name="data.type">utm</field>
-    <field name="data.subtype">webfilter</field>
-    <field name="data.action">blocked</field>
-    <field name="data.catdesc" type="pcre2">Phishing|Command.and.Control</field>
-    <description>DIKKAT (WebFilter): FortiGate Phishing/C2 Erisimini Engelledi. (IP: $(srcip), Host: $(hostname))</description>
-    <mitre>
-      <id>T1566.002</id>
-      <id>T1071.001</id>
-    </mitre>
-    <group>webfilter,phishing,c2,</group>
-    <options>alert_by_email</options>
-  </rule>
 
 </group>
