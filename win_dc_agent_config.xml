@@ -1,0 +1,102 @@
+<ossec_config>
+
+  <client>
+    <server>
+      <address>192.168.0.54</address> <port>1514</port>
+      <protocol>tcp</protocol>
+    </server>
+    <crypto_method>aes</crypto_method>
+    <notify_time>20</notify_time>
+    <time-reconnect>60</time-reconnect>
+    <auto_restart>yes</auto_restart>
+  </client>
+
+  <client_buffer>
+    <disabled>no</disabled>
+    <queue_size>5000</queue_size>
+    <events_per_second>500</events_per_second>
+  </client_buffer>
+
+  <localfile>
+    <location>Security</location>
+    <log_format>eventchannel</log_format>
+  </localfile>
+
+  <localfile>
+    <location>System</location>
+    <log_format>eventchannel</log_format>
+  </localfile>
+
+  <localfile>
+    <location>Application</location>
+    <log_format>eventchannel</log_format>
+  </localfile>
+
+  <localfile>
+    <location>Microsoft-Windows-ActiveDirectory_DomainService/DirectoryServices</location>
+    <log_format>eventchannel</log_format>
+  </localfile>
+
+  <localfile>
+    <location>Microsoft-Windows-PowerShell/Operational</location>
+    <log_format>eventchannel</log_format>
+  </localfile>
+
+  <localfile>
+    <location>Microsoft-Windows-Sysmon/Operational</location>
+    <log_format>eventchannel</log_format>
+  </localfile>
+
+  <localfile>
+    <location>Microsoft-Windows-TerminalServices-LocalSessionManager/Operational</location>
+    <log_format>eventchannel</log_format>
+  </localfile>
+  
+  <localfile>
+    <location>C:\inetpub\logs\LogFiles\W3SVC1\*.log</location>
+    <log_format>iis</log_format>
+    <query>Event/System[EventID != 20399 and EventID != 20400]</query>
+  </localfile>
+
+  <syscheck>
+    <disabled>no</disabled>
+    <frequency>43200</frequency> <directories check_all="yes" realtime="yes" report_changes="yes">C:\Windows\SYSVOL</directories>
+
+    <directories check_all="yes" realtime="yes" report_changes="yes">C:\Windows\NTDS</directories>
+    
+    <directories check_all="yes" report_changes="yes">C:\Windows\System32</directories>
+    <directories check_all="yes" report_changes="yes">C:\Windows\SysWOW64</directories>
+
+    <allow_ext>.ps1|.bat|.vbs|.com|.exe|.dll|.scr|.pif|.hta|.js|.aspx|.asp</allow_ext>
+
+    <directories check_all="yes" realtime="yes" report_changes="yes">C:\ProgramData</directories>
+    <directories check_all="yes" realtime="yes" report_changes="yes">C:\Users\Public</directories>
+  </syscheck>
+
+  <wodle name="syscollector">
+    <disabled>no</disabled>
+    <interval>12h</interval>
+    <scan_on_start>yes</scan_on_start>
+    <hardware>yes</hardware>
+    <os>yes</os>
+    <network>yes</network>
+    <packages>yes</packages>
+    <ports all="no">yes</ports>
+  </wodle>
+
+  <sca>
+    <enabled>yes</enabled>
+    <scan_on_start>yes</scan_on_start>
+    <interval>12h</interval>
+    <skip_nfs>yes</skip_nfs>
+  </sca>
+
+  <active-response>
+    <disabled>no</disabled>
+  </active-response>
+
+  <logging>
+    <log_format>plain</log_format>
+  </logging>
+
+</ossec_config>
