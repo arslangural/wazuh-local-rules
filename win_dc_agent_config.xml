@@ -2,7 +2,7 @@
 
   <client>
     <server>
-      <address>192.168.0.54</address> <port>1514</port>
+      <address>your_wazuh_ip</address> <port>1514</port>
       <protocol>tcp</protocol>
     </server>
     <crypto_method>aes</crypto_method>
